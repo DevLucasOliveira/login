@@ -1,3 +1,4 @@
+import { LoginComponent } from './user/login/login.component';
 import { RegistrationComponent } from './user/registration/registration.component';
 import { UserComponent } from './user/user.component';
 import { NgModule } from '@angular/core';
@@ -8,7 +9,8 @@ const routes: Routes = [
 {path: '', redirectTo: '/user/registration', pathMatch: 'full'},
   {path: 'user', component: UserComponent,
   children: [
-    { path: 'registration', component: RegistrationComponent }
+    { path: 'registration', component: RegistrationComponent },
+    { path: 'login', component: LoginComponent}
   ]}
 
 ];
