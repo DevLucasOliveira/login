@@ -7,9 +7,15 @@
 |   |  +--● login
 |   |     |--login.component.ts|.html|.css     
 |   |       
+|   +--● home
+|   |  |--home.component.ts|.html
 |   |    
 |    +--● shared
 |   |     |--user.service.ts
+|   |
+|    +--● auth
+|   |     |--auth.guard.ts   
+|   |
 |   |
 |   |--app.module.ts
 |   |--app-routing.module.ts (route configs.)

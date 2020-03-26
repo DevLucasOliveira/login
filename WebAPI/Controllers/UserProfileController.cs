@@ -4,7 +4,9 @@ using System.Linq;
 using System.Threading.Tasks;
 using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Http;
+using Microsoft.AspNetCore.Identity;
 using Microsoft.AspNetCore.Mvc;
+using WebAPI.Models;
 
 namespace WebAPI.Controllers
 {
@@ -14,6 +16,7 @@ namespace WebAPI.Controllers
     public class UserProfileController : ControllerBase
     {
 
+        private UserManager<ApplicationUser> _userManager;
 
         public UserProfileController(UserManager<ApplicationUser> userManager)
         {
@@ -26,7 +29,13 @@ namespace WebAPI.Controllers
         //GET : /api/UserProfile
         public async Task<Object> GetUserProfile() {
             string userId = User.Claims.First(c => c.Type == "UserID").Value;
-            var user = 
+            var user = await _userManager.FindByIdAsync(userId);
+            return new
+            {
+                user.FullName,
+                user.Email,
+                user.UserName
+            };
         }
     }
 }
