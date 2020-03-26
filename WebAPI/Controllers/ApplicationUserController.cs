@@ -21,8 +21,6 @@ namespace WebAPI.Controllers
 
         private UserManager<ApplicationUser> _userManager;
         private SignInManager<ApplicationUser> _signInManager;
-        private SecurityTokenDescriptor tokenDescriptor;
-        private SecurityToken securityToken;
         private readonly ApplicationSettings _appSettings;
 
         public SigningCredentials SigningCredentials { get; private set; }
@@ -33,6 +31,7 @@ namespace WebAPI.Controllers
             _signInManager = signInManager;
             _appSettings = appSettings.Value;
         }
+
 
         [HttpPost]
         [Route("Register")]
@@ -76,24 +75,13 @@ namespace WebAPI.Controllers
                     SigningCredentials = new SigningCredentials(new SymmetricSecurityKey(Encoding.UTF8.GetBytes(_appSettings.JWT_Secret)), SecurityAlgorithms.HmacSha256Signature)
                 };
                 var tokenHandler = new JwtSecurityTokenHandler();
-                var SecurityToken = tokenHandler.CreateToken(tokenDescriptor);
+                var securityToken = tokenHandler.CreateToken(tokenDescriptor);
                 var token = tokenHandler.WriteToken(securityToken);
-                return OkResult(new { token });
+                return Ok(new { token });
             }
-
             else
-                return BadRequestResult(new { message = "Usuário ou senha incorreta." });
-            
-        }
+                return BadRequest(new { message = "Usuário ou senha incorreta." });
 
-        private IActionResult OkResult(object p)
-        {
-            throw new NotImplementedException();
-        }
-
-        private IActionResult BadRequestResult(object p)
-        {
-            throw new NotImplementedException();
         }
     }
-  }
+}

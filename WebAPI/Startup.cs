@@ -35,6 +35,7 @@ namespace WebAPI
             services.Configure<ApplicationSettings>(Configuration.GetSection("ApplicationSettings"));
 
             services.AddMvc().SetCompatibilityVersion(CompatibilityVersion.Version_2_2);
+            services.AddMvc().AddWebApiConventions();
 
             services.AddDbContext<AuthenticationContext>(options =>
             options.UseSqlServer(Configuration.GetConnectionString("IdentityConnection")));
@@ -83,7 +84,7 @@ namespace WebAPI
 
 
         // This method gets called by the runtime. Use this method to configure the HTTP request pipeline.
- public void Configure(IApplicationBuilder app, IHostingEnvironment env)
+        public void Configure(IApplicationBuilder app, IHostingEnvironment env)
         {
 
             app.Use(async (ctx, next) =>
@@ -95,21 +96,23 @@ namespace WebAPI
                 }
             });
 
+
             if (env.IsDevelopment())
             {
                 app.UseDeveloperExceptionPage();
             }
 
-            app.UseCors(builder =>
-            builder.WithOrigins(Configuration["ApplicationSettings:Client_URL"].ToString())
-            .AllowAnyHeader()
-            .AllowAnyMethod()
-            
-            );
+                app.UseCors(builder =>
+                builder.WithOrigins(Configuration["ApplicationSettings:Client_URL"].ToString())
+                .AllowAnyHeader()
+                .AllowAnyMethod()          
+                );
 
-            app.UseAuthentication();
+               app.UseAuthentication();
+               app.UseMvc();
 
-            app.UseMvc();
         }
     }
 }
+
+
