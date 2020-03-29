@@ -9,8 +9,6 @@ import { Router } from '@angular/router';
 })
 export class HomeComponent implements OnInit {
   userDetails;
-
-
   constructor(private router: Router, private service: UserService) { }
 
   ngOnInit() {
@@ -20,7 +18,7 @@ export class HomeComponent implements OnInit {
       },
       err => {
         console.log(err);
-      },
+      }
     );
   }
 

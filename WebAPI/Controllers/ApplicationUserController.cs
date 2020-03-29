@@ -82,6 +82,6 @@ namespace WebAPI.Controllers
             else
                 return BadRequest(new { message = "Usuário ou senha incorreta." });
 
-        }
+        }    
     }
 }

@@ -22,11 +22,11 @@ export class UserService {
 
 
   comparePasswords(fb: FormGroup) {
-    let confirmPswrdCtrl = fb.get('ConfirmPassword');
+    const confirmPswrdCtrl = fb.get('ConfirmPassword');
     // passworMismatch
     // confirmPswrdCtrl.errors={passwordMismatch: true}
     if (confirmPswrdCtrl.errors == null || 'passwordMismatch' in confirmPswrdCtrl.errors) {
-      if (fb.get('Password').value != confirmPswrdCtrl.value) {
+      if (fb.get('Password').value !== confirmPswrdCtrl.value) {
         confirmPswrdCtrl.setErrors({ passwordMismatch: true });
       } else {
         confirmPswrdCtrl.setErrors( null );
@@ -35,7 +35,7 @@ export class UserService {
   }
 
   register() {
-    var body = {
+    const body = {
       UserName: this.formModel.value.UserName,
       Email: this.formModel.value.Email,
       FullName: this.formModel.value.FullName,
@@ -50,8 +50,7 @@ export class UserService {
   }
 
   getUserProfile() {
-    var tokenHeader = new HttpHeaders({' Authorization': 'Bearer ' + localStorage.getItem('token')});
-    return this.http.get(this.BaseURI + '/UserProfile',{headers : tokenHeader});
+    return this.http.get(this.BaseURI + '/UserProfile');
   }
 }
 
