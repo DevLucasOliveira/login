@@ -15,7 +15,6 @@ let AuthInterceptor = class AuthInterceptor {
                 if (err.status === 401) {
                     localStorage.removeItem('token');
                     this.router.navigateByUrl('/user/login');
-                    this.toastr.error('ERROR', 'Falha de autenticação.');
                 }
             }));
         }
